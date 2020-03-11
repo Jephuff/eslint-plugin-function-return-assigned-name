@@ -8,8 +8,8 @@
 "use strict";
 
 const ESLintTester = require("eslint").RuleTester;
-const ReactHooksESLintPlugin = require("../");
-const errors = require("../src/CreateHookFunctionName").errors;
+const ReactHooksESLintPlugin = require("..");
+const errors = require("../src/FunctionReturnAssignedName").errors;
 const ReactHooksESLintRule =
   ReactHooksESLintPlugin.rules["create-hook-function-name"];
 
