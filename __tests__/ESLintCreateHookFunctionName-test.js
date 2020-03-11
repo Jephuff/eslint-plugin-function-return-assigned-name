@@ -9,6 +9,7 @@
 
 const ESLintTester = require("eslint").RuleTester;
 const ReactHooksESLintPlugin = require("../");
+const errors = require("../src/CreateHookFunctionName").errors;
 const ReactHooksESLintRule =
   ReactHooksESLintPlugin.rules["create-hook-function-name"];
 
@@ -17,125 +18,99 @@ ESLintTester.setDefaultConfig({
   parserOptions: { ecmaVersion: 6, sourceType: "module" },
 });
 
+const defaultOptions = {
+  allowObjectProperties: false,
+  allowReturn: false,
+  functionName: /^createUse[A-Z0-9].*$/,
+  variableName: /^use[A-Z0-9].*$/,
+};
+
 const tests = {
   valid: [
     {
-      code: `
-        const resource = createUseResource()
-      `,
-      options: [{ createFunctionNames: ["overrideName"] }],
-    },
-    `
-      useResource = createUseResource()
-    `,
-    `
-      const useResource = createUseResource()
-    `,
-    `
-      function wrapper() {
-        const useResource = createUseResource()
-      }
-    `,
-    `
-      function wrapper() {
-        return createUseResource()
-      }
-    `,
-    {
-      code: `
-        const data = {
-          useResource: createUseResource()
-        }
-      `,
-      options: [{ allowObjectProperties: true }],
+      code: "const useResource = createUseResource()",
+      options: [defaultOptions],
     },
     {
-      code: `
-        data.useResource = createUseResource()
-      `,
-      options: [{ allowObjectProperties: true }],
+      code: "let useResource = createUseResource()",
+      options: [defaultOptions],
+    },
+    {
+      code: "var useResource = createUseResource()",
+      options: [defaultOptions],
+    },
+    { code: "useResource = createUseResource()", options: [defaultOptions] },
+    {
+      code: "function wrapper() { const useResource = createUseResource() }",
+      options: [defaultOptions],
+    },
+    {
+      code: "function wrapper() { return createUseResource() }",
+      options: [{ ...defaultOptions, allowReturn: true }],
+    },
+    {
+      code: "const data = { useResource: createUseResource() }",
+      options: [
+        { ...defaultOptions, allowObjectProperties: true, allowReturn: true },
+      ],
+    },
+    {
+      code: "data.useResource = createUseResource()",
+      options: [
+        { ...defaultOptions, allowObjectProperties: true, allowReturn: true },
+      ],
     },
   ],
   invalid: [
     {
-      code: `
-        const resource = overRideName()
-      `,
+      code: "const resource = createUseResource()",
       errors: [
-        "variable storing value returned from create hook function must follow hook naming convention",
+        errors.nameIncorrect(/^createUse[A-Z0-9].*$/, /^use[A-Z0-9].*$/),
       ],
-      options: [{ createFunctionNames: ["overRideName"] }],
+      options: [defaultOptions],
     },
     {
-      code: `
-        const resource = createUseResource()
-      `,
+      code: "resource = createUseResource()",
       errors: [
-        "variable storing value returned from create hook function must follow hook naming convention",
+        errors.nameIncorrect(/^createUse[A-Z0-9].*$/, /^use[A-Z0-9].*$/),
       ],
+      options: [defaultOptions],
     },
     {
-      code: `
-        resource = createUseResource()
-      `,
+      code: "function wrapper() { const resource = createUseResource() }",
       errors: [
-        "variable storing value returned from create hook function must follow hook naming convention",
+        errors.nameIncorrect(/^createUse[A-Z0-9].*$/, /^use[A-Z0-9].*$/),
       ],
+      options: [defaultOptions],
     },
     {
-      code: `
-        function wrapper() {
-          const resource = createUseResource()
-        }
-      `,
+      code: "function wrapper() { return createUseResource() }",
+      errors: [errors.noReturn(/^createUse[A-Z0-9].*$/, /^use[A-Z0-9].*$/)],
+      options: [defaultOptions],
+    },
+    {
+      code: "const data = { useResource: createUseResource() }",
+      errors: [errors.noNameSpace(/^createUse[A-Z0-9].*$/, /^use[A-Z0-9].*$/)],
+      options: [defaultOptions],
+    },
+    {
+      code: "const data = { resource: createUseResource() }",
       errors: [
-        "variable storing value returned from create hook function must follow hook naming convention",
+        errors.nameIncorrect(/^createUse[A-Z0-9].*$/, /^use[A-Z0-9].*$/),
       ],
+      options: [{ ...defaultOptions, allowObjectProperties: true }],
     },
     {
-      code: `
-        function wrapper() {
-          return createUseResource()
-        }
-      `,
+      code: "data.resource = createUseResource()",
+      options: [{ ...defaultOptions, allowObjectProperties: true }],
       errors: [
-        "create hook functions are not allowed to be directly returned from another function, assign it to a variable following hook naming conventions",
-      ],
-      options: [{ allowReturn: false }],
-    },
-    {
-      code: `
-        const data = {
-          useResource: createUseResource()
-        }
-      `,
-      errors: ["no assigning to namespace"],
-    },
-    {
-      code: `
-        const data = {
-          resource: createUseResource()
-        }
-      `,
-      errors: [
-        "variable storing value returned from create hook function must follow hook naming convention",
-      ],
-      options: [{ allowObjectProperties: true }],
-    },
-    {
-      code: `
-        data.resource = createUseResource()
-      `,
-      options: [{ allowObjectProperties: true }],
-      errors: [
-        "variable storing value returned from create hook function must follow hook naming convention",
+        errors.nameIncorrect(/^createUse[A-Z0-9].*$/, /^use[A-Z0-9].*$/),
       ],
     },
     {
-      code: `
-        data.useResource = createUseResource()
-      `,
-      errors: ["no assigning to namespace"],
+      code: "data.useResource = createUseResource()",
+      errors: [errors.noNameSpace(/^createUse[A-Z0-9].*$/, /^use[A-Z0-9].*$/)],
+      options: [defaultOptions],
     },
   ],
 };

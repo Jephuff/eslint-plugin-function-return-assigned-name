@@ -1,6 +1,6 @@
 {
-  "name": "eslint-plugin-returned-react-hooks",
-  "description": "ESLint rules for functions that return React Hooks",
+  "name": "eslint-plugin-function-return-assigned-name",
+  "description": "ESLint rules for matching variable name that functions return value is stored in",
   "version": "0.0.0",
   "keywords": [
     "eslint",

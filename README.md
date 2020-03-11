@@ -1,6 +1,7 @@
-# `eslint-plugin-returned-react-hooks`
+# `eslint-plugin-function-return-assigned-name`
 
-This ESLint plugin enforces rules for functions that return [React Hooks](https://reactjs.org/docs/hooks-intro.html)
+This ESLint plugin enforces rules for variable names that a functions return value is assigned to.
+an example usage is for a function that returns a React Hook and needs to be assigne to a variable starting with `use` [React Hooks](https://reactjs.org/docs/hooks-intro.html)
 
 ## Installation
 
@@ -8,10 +9,10 @@ Assuming you already have ESLint installed, run:
 
 ```sh
 # npm
-npm install eslint-plugin-returned-react-hooks --save-dev
+npm install eslint-plugin-function-return-assigned-name --save-dev
 
 # yarn
-yarn add eslint-plugin-returned-react-hooks --dev
+yarn add eslint-plugin-function-return-assigned-name --dev
 ```
 
 Then add it to your ESLint configuration:
@@ -20,11 +21,11 @@ Then add it to your ESLint configuration:
 {
   "plugins": [
     // ...
-    "returned-react-hooks"
+    "function-return-assigned-name"
   ],
   "rules": {
     // ...
-    "returned-react-hooks/create-hook-function-name": "error"
+    "function-return-assigned-name/function-return-assigned-name": "error"
   }
 }
 ```
@@ -35,7 +36,7 @@ Or use the recommended config:
 {
   "extends": [
     // ...
-    "returned-react-hooks/recommended"
+    "function-return-assigned-name/recommended"
   ]
 }
 ```

@@ -1,16 +1,16 @@
 "use strict";
 
-const CreateHookFunctionName = require("./CreateHookFunctionName");
+const FunctionReturnAssignedName = require("./FunctionReturnAssignedName");
 
 module.exports.configs = {
   recommended: {
     plugins: ["returned-react-hooks"],
     rules: {
-      "returned-react-hooks/create-hook-function-name": "error",
+      "function-return-assigned-name/function-return-assigned-name": "error",
     },
   },
 };
 
 module.exports.rules = {
-  "create-hook-function-name": CreateHookFunctionName,
+  "function-return-assigned-name": FunctionReturnAssignedName,
 };
