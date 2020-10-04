@@ -4,7 +4,7 @@ module.exports = {
   plugins: ["prettier"],
   parser: "babel-eslint",
   rules: {
-    "prettier/prettier": [1, { trailingComma: "es5" }]
+    "prettier/prettier": [1, { trailingComma: "es5" }],
   },
-  extends: ["prettier", "eslint:recommended"]
+  extends: ["prettier", "eslint:recommended"],
 };

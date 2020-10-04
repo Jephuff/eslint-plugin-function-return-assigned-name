@@ -7,9 +7,9 @@ function nameMatches(matcher, name) {
 const errors = {
   nameIncorrect: (funcMatcher, variableMatcher) =>
     `variable storing value returned from ${funcMatcher.toString()} must match ${variableMatcher.toString()}`,
-  noReturn: funcMatcher =>
+  noReturn: (funcMatcher) =>
     `value returned from ${funcMatcher.toString()} is not allowed to be directly returned from another function`,
-  noNameSpace: funcMatcher =>
+  noNameSpace: (funcMatcher) =>
     `value returned from ${funcMatcher.toString()} is not allowed to be stored in an Object`,
 };
 
