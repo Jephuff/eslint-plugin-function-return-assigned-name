@@ -30,16 +30,6 @@ Then add it to your ESLint configuration:
 }
 ```
 
-Or use the recommended config:
-
-```js
-{
-  "extends": [
-    // ...
-    "function-return-assigned-name/recommended"
-  ]
-}
-```
 
 ## Valid and Invalid Examples
 
