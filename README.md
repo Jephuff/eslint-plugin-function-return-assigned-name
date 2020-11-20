@@ -25,7 +25,15 @@ Then add it to your ESLint configuration:
   ],
   "rules": {
     // ...
-    "function-return-assigned-name/function-return-assigned-name": "error"
+    "function-return-assigned-name/function-return-assigned-name": [
+      "error",
+      {
+        allowObjectProperties: false,
+        allowReturn: false,
+        functionName: /^createUse[A-Z0-9].*$/,
+        variableName: /^use[A-Z0-9].*$/,
+      },
+    ],
   }
 }
 ```
