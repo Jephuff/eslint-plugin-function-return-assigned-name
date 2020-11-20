@@ -4,7 +4,7 @@ const FunctionReturnAssignedName = require("./FunctionReturnAssignedName");
 
 module.exports.configs = {
   recommended: {
-    plugins: ["returned-react-hooks"],
+    plugins: ["function-return-assigned-name"],
     rules: {
       "function-return-assigned-name/function-return-assigned-name": "error",
     },
