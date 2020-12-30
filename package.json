@@ -13,14 +13,18 @@
     "node": ">=7"
   },
   "peerDependencies": {
-    "eslint": "^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0"
+    "eslint": "3.x || 4.x || 5.x || 6.x || 7.x"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.10.0",
+    "eslint": "7.x",
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-prettier": "^3.1.4",
     "prettier": "^2.1.2"
   },
-  "main": "src"
+  "main": "src",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jephuff/eslint-plugin-function-return-assigned-name.git"
+  }
 }
